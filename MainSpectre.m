@@ -5,22 +5,22 @@ fclose(fileID);
 Element = temp{1,1}; % Chemical element number
 numberOfPoints = length(Element);
 %% Part of gui
-prompt = {'Шаг по времени в фс', 'Количество шагов', 'w_min', 'w_max', 'Tao_max', 'Усреднение по времени'};
-title = 'Начальные данные';
+prompt = {'ГГ ГЈ ГЇГ® ГўГ°ГҐГ¬ГҐГ­ГЁ Гў ГґГ±', 'ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГёГ ГЈГ®Гў', 'w_min', 'w_max', 'Tao_max', 'Г“Г±Г°ГҐГ¤Г­ГҐГ­ГЁГҐ ГЇГ® ГўГ°ГҐГ¬ГҐГ­ГЁ'};
+title = 'ГЌГ Г·Г Г«ГјГ­Г»ГҐ Г¤Г Г­Г­Г»ГҐ';
 dims = [1 40];
 defaultInput = {'2', '300', '1', '1000', '300', '50'};
 answer = inputdlg(prompt, title, dims, defaultInput);
 %% Start conditions
-Disp = 10^-5;   % сдвиг по координате для нахождения сил в каждой точке
-timeStep = str2double(answer{1});   %шаг по времени в фс
-FullTime = str2double(answer{2});   %полное количество шагов
+Disp = 10^-5;   % Г±Г¤ГўГЁГЈ ГЇГ® ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГҐ Г¤Г«Гї Г­Г ГµГ®Г¦Г¤ГҐГ­ГЁГї Г±ГЁГ« Гў ГЄГ Г¦Г¤Г®Г© ГІГ®Г·ГЄГҐ
+timeStep = str2double(answer{1});   %ГёГ ГЈ ГЇГ® ГўГ°ГҐГ¬ГҐГ­ГЁ Гў ГґГ±
+FullTime = str2double(answer{2});   %ГЇГ®Г«Г­Г®ГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГёГ ГЈГ®Гў
 wMin = str2double(answer{3});   
 wMax = str2double(answer{4});
 Tao = str2double(answer{5});
-Ttimes = str2double(answer{6}); %сколько значений будем считать для усреднения по времени
-mass = 125000; %масса одного атома углерода
-fileID = fopen('MDfullereneTermo.xyz', 'w'); %создаем файл для записи результата термолизации
-%% координаты фулерена
+Ttimes = str2double(answer{6}); %Г±ГЄГ®Г«ГјГЄГ® Г§Г­Г Г·ГҐГ­ГЁГ© ГЎГіГ¤ГҐГ¬ Г±Г·ГЁГІГ ГІГј Г¤Г«Гї ГіГ±Г°ГҐГ¤Г­ГҐГ­ГЁГї ГЇГ® ГўГ°ГҐГ¬ГҐГ­ГЁ
+mass = 125000; %Г¬Г Г±Г±Г  Г®Г¤Г­Г®ГЈГ® Г ГІГ®Г¬Г  ГіГЈГ«ГҐГ°Г®Г¤Г 
+fileID = fopen('MDfullereneTermo.xyz', 'w'); %Г±Г®Г§Г¤Г ГҐГ¬ ГґГ Г©Г« Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ Г°ГҐГ§ГіГ«ГјГІГ ГІГ  ГІГҐГ°Г¬Г®Г«ГЁГ§Г Г¶ГЁГЁ
+%% ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГґГіГ«ГҐГ°ГҐГ­Г 
 XYZ = zeros(numberOfPoints,3);
 XYZ(:,1) = temp{1,2};
 XYZ(:,2) = temp{1,3};
@@ -32,10 +32,10 @@ setappdata(f, 'canceling', 0);
 
 %%
 V0 = zeros(numberOfPoints, 3);
-V0 = randn(size(V0))/10^4;  %матрица случайных скоростей от -10^-4 до 10^-4
+V0 = randn(size(V0))/10^4;  %Г¬Г ГІГ°ГЁГ¶Г  Г±Г«ГіГ·Г Г©Г­Г»Гµ Г±ГЄГ®Г°Г®Г±ГІГҐГ© Г®ГІ -10^-4 Г¤Г® 10^-4
 fprintf(fileID,'%.0f\nstep 1\n', numberOfPoints);
 for i = 1:numberOfPoints
-    fprintf(fileID,'%.0f\t%f\t%f\t%f\n',Element(1), XYZ(i,:));  %начальные координаты
+    fprintf(fileID,'%.0f\t%f\t%f\t%f\n',Element(1), XYZ(i,:));  %Г­Г Г·Г Г«ГјГ­Г»ГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ»
 end
 Forces = forcesFinder(XYZ(:,1), XYZ(:,2), XYZ(:,3), numberOfPoints, Disp);
 for i = 2:FullTime
@@ -54,10 +54,10 @@ for i = 2:FullTime
     waitbar(i/FullTime, f, sprintf('Step - %.0f of %.0f', i , FullTime))
 end
 delete(f); %close waitbar
-fclose(fileID); %закрываем файл MDfullereneTermo.xyz
+fclose(fileID); %Г§Г ГЄГ°Г»ГўГ ГҐГ¬ ГґГ Г©Г« MDfullereneTermo.xyz
 
 
-fileID = fopen('MDfullereneVelocity.xyz', 'w'); %создаем файл для записи скоростей
+fileID = fopen('MDfullereneVelocity.xyz', 'w'); %Г±Г®Г§Г¤Г ГҐГ¬ ГґГ Г©Г« Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ Г±ГЄГ®Г°Г®Г±ГІГҐГ©
 %% Setting waitbar
 FullTime = Tao + Ttimes; 
 f = waitbar(0, sprintf('Step - 1 of %.0f', FullTime), 'Name', 'Calculation...', ...
@@ -67,10 +67,10 @@ setappdata(f, 'canceling', 0);
 %%
 %fprintf(fileID,'step 1\n');
 for i = 1:numberOfPoints
-    fprintf(fileID,'%.8f\t%.8f\t%.8f\n', V0(i,:));  %начальные координаты
+    fprintf(fileID,'%.8f\t%.8f\t%.8f\n', V0(i,:));  %Г­Г Г·Г Г«ГјГ­Г»ГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ»
 end
 Forces = forcesFinder(XYZ(:,1), XYZ(:,2), XYZ(:,3), numberOfPoints, Disp);
-step = 2; %шаг по врмени для записи скоростей 2 фс
+step = 2; %ГёГ ГЈ ГЇГ® ГўГ°Г¬ГҐГ­ГЁ Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ Г±ГЄГ®Г°Г®Г±ГІГҐГ© 2 ГґГ±
 for i = 2:FullTime
     if getappdata(f,'canceling')
         break
@@ -87,8 +87,8 @@ for i = 2:FullTime
     waitbar(i/FullTime, f, sprintf('Step - %.0f of %.0f', i , FullTime))
 end
 delete(f); %close waitbar
-fclose(fileID); %закрываем файл MDfullereneVelocity.xyz
-fileID = fopen('MDfullereneVelocity.xyz', 'r'); %откываем файл со скоростями
+fclose(fileID); %Г§Г ГЄГ°Г»ГўГ ГҐГ¬ ГґГ Г©Г« MDfullereneVelocity.xyz
+fileID = fopen('MDfullereneVelocity.xyz', 'r'); %Г®ГІГЄГ»ГўГ ГҐГ¬ ГґГ Г©Г« Г±Г® Г±ГЄГ®Г°Г®Г±ГІГїГ¬ГЁ
 temp = textscan(fileID, '%f %f %f', numberOfPoints*FullTime);
 fclose(fileID);
 V = zeros(numberOfPoints*FullTime, 3);
@@ -96,11 +96,11 @@ V(:,1) = temp{1,1}; %X
 V(:,2) = temp{1,2}; %Y
 V(:,3) = temp{1,3}; %Z
 TaoSteps = (Tao - 10)/2;
-A_F = zeros(TaoSteps,1);  %массив фунуций автокорреляции для тао = 10:2:Tao фс
+A_F = zeros(TaoSteps,1);  %Г¬Г Г±Г±ГЁГў ГґГіГ­ГіГ¶ГЁГ© Г ГўГІГ®ГЄГ®Г°Г°ГҐГ«ГїГ¶ГЁГЁ Г¤Г«Гї ГІГ Г® = 10:2:Tao ГґГ±
 for i = 1:TaoSteps
-    for j = 1:Ttimes %усреднение по времени
+    for j = 1:Ttimes %ГіГ±Г°ГҐГ¤Г­ГҐГ­ГЁГҐ ГЇГ® ГўГ°ГҐГ¬ГҐГ­ГЁ
         V1 = V(1 + (j - 1)*numberOfPoints:j*numberOfPoints,:);
-        V2 = V(1 + (j - 1 + 4 + i)*numberOfPoints:(j + 4 + i)*numberOfPoints,:);    %один шаг по времени в файле 2фс, поэтому для Тао=10фс j+4        
+        V2 = V(1 + (j - 1 + 4 + i)*numberOfPoints:(j + 4 + i)*numberOfPoints,:);    %Г®Г¤ГЁГ­ ГёГ ГЈ ГЇГ® ГўГ°ГҐГ¬ГҐГ­ГЁ Гў ГґГ Г©Г«ГҐ 2ГґГ±, ГЇГ®ГЅГІГ®Г¬Гі Г¤Г«Гї Г’Г Г®=10ГґГ± j+4        
         for k = 1:numberOfPoints
             A_F(i) = A_F(i) + sqrt(sum(V1(k,:).^2)*sum(V2(k,:).^2));
         end
@@ -114,4 +114,4 @@ for i = 1:TaoSteps
 end
 w1= wMin:0.5:wMax;
 y1 = subs(P,w,w1);
-plot(w1,y1); %построение спектра
+plot(w1,y1); %ГЇГ®Г±ГІГ°Г®ГҐГ­ГЁГҐ Г±ГЇГҐГЄГІГ°Г 
